@@ -642,11 +642,17 @@ angular.module('cloudberry.map', ['leaflet-directive', 'cloudberry.common','clou
                 return;
             }
             if($scope.id<$scope.testInputs.length){
-                testfunction(onEachFeature,$scope.testInputs[$scope.id]).done(function(){
-                    //console.log("ONE");
-                    $scope.id += 1;
-                    $scope.runSimulation();
-                })
+                
+                    //your code to be executed after 1 second
+                    testfunction(onEachFeature,$scope.testInputs[$scope.id]).done(function(){
+                        console.log("ONE");
+                        setTimeout(function() {
+                            console.log("call after");
+                        $scope.id += 1;
+                        $scope.runSimulation();
+                        }, 1000);
+                    })
+
             }
             else{
                 getAverage();
