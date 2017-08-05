@@ -1,0 +1,13 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/ddl,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/ddl)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/request,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/request)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/response,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/response)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/ddl/schema.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/ddl/schema.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/ddl/twitterSchema.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/ddl/twitterSchema.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/request/fullRequest.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/request/fullRequest.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/request/hashtag.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/request/hashtag.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/request/mapTimeCube.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/request/mapTimeCube.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/request/sampleTweets.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/request/sampleTweets.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/response/fullResponse.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/response/fullResponse.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/response/hashtag.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/response/hashtag.json)[0m
+[0m[[0mdebug[0m] [0m	(/Users/vidhyasagar/Desktop/demo/cloudberry/zion/src/main/resources/response/mapTimeCube.json,/Users/vidhyasagar/Desktop/demo/cloudberry/zion/target/scala-2.11/classes/response/mapTimeCube.json)[0m
