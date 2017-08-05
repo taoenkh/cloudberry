@@ -49,3 +49,20 @@ You can run the following command in a separate command line window.
 > sbt "project web" "run 9001"
 ```
 You should see the TwitterMap demo on [http://localhost:9001](http://localhost:9001)
+
+###Cache related :
+you can always change the cache size from cache services file
+
+###Steps To add new test input file:
+Remove All Console.logs from the codebase
+Add a console.log at line 370 in examples/twittermap/web/public/javascripts/map/controllers.js
+to see just the rteBounds,Those are the test inputs
+In console of dev tools in chrome right click and select save me
+Then you have to change the test input file as in examples/twittermap/web/public/data/testInput1.json
+add performance.now statements in places you want to see the timing
+
+###Run Simulation
+Both run simulation and next button won't work for the first time you click it.
+From second time it will work well
+You any time manually scroll down to see any city view
+
