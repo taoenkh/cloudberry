@@ -27,6 +27,7 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import scala.concurrent.duration._
 import scala.concurrent.{Await, Future}
 
+
 @Singleton
 class Cloudberry @Inject()(val wsClient: WSClient,
                            val configuration: Configuration,
@@ -43,9 +44,14 @@ class Cloudberry @Inject()(val wsClient: WSClient,
       case "postgresql" => (new PostgreSQLConn(config.PostgreSqlURL), PostgreSQLGenerator)
       case "aql" => (new AsterixAQLConn(config.AsterixURL, wsClient), AQLGenerator)
       case "sqlpp" => (new AsterixSQLPPConn(config.AsterixURL, wsClient), SQLPPGenerator)
+      case "oracle" => (new OracleConn(config.OracleURL), OracleGenerator)
       case _ => throw new IllegalArgumentException(s"unknown asterixdb.lang option:${config.AsterixLang}")
     }
-
+  println(asterixConn+"-----Asterix Conn")
+  println(qlGenerator+"-----qlGenerator Conn")
+  println(config+"-------------config")
+  println(Migration_20160814.berryMeta+"   ________berry meta")
+  //Migration_20160814.migration.up(asterixConn)
   Await.result(Migration_20160814.migration.up(asterixConn), 10.seconds)
 
   val manager = system.actorOf(DataStoreManager.props(Migration_20160814.berryMeta, asterixConn, qlGenerator, config))
@@ -82,7 +88,9 @@ class Cloudberry @Inject()(val wsClient: WSClient,
     })
   }
 
-  def ws = WebSocket.accept[JsValue, JsValue] { request =>
+  def ws = WebSocket.accept[JsValue, JsValue] {
+    Logger.info("websocket accept.....................")
+    request =>
     ActorFlow.actorRef { out =>
       RequestRouter.props(BerryClient.props(new JSONParser(), manager, new QueryPlanner(), config, out), config, request)
     }
@@ -95,17 +103,23 @@ class Cloudberry @Inject()(val wsClient: WSClient,
   }
 
   def berryQuery = Action(parse.json) { request =>
+    //Logger.info("oracle testing.....................")
     implicit val timeout: Timeout = Timeout(config.UserTimeOut)
     val source = Source.single(request.body)
+    Logger.info("oracle testing request.body="+request.body+"===JsValue===="+JsValue)
 
     val flow = Cloudberry.actorFlow[JsValue, JsValue]({ out =>
       BerryClient.props(new JSONParser(), manager, new QueryPlanner(), config, out)
     }, BerryClient.Done)
+
+
     val toStringFlow = Flow[JsValue].map(js => js.toString() + System.lineSeparator())
+
     Ok.chunked((source via flow) via toStringFlow)
   }
 
   def register = Action.async(parse.json) { request =>
+
     handleRegisterPartial(request.body.validate[Register])((r: DataManagerResponse) => Ok(r.message))
   }
 
@@ -133,19 +147,26 @@ class Cloudberry @Inject()(val wsClient: WSClient,
 
   private def handleRegisterPartial(jsResult: JsResult[Register])
                                       (successHandler: DataManagerResponse => Result): Future[Result] = {
+    Logger.info("handleRegisterPartial........................"+jsResult)
     implicit val timeout: Timeout = Timeout(config.UserTimeOut)
     jsResult match {
       case registerRequest: JsSuccess[_] =>
         val newTable = registerRequest.get.asInstanceOf[Register]
         val receipt = (manager ? newTable).mapTo[DataManagerResponse]
-
+        Logger.info("newTable........................"+newTable.toString)
+        Logger.info("receipt........................"+receipt.value)
         receipt.map { r =>
-          if (r.isSuccess) successHandler(r)
-          else BadRequest(r.message)
+          Logger.info("receipt.................sdas......."+r.toString)
+          println("after.........")
+          if (r.isSuccess) {
+            println("success")
+            successHandler(r)}
+          else {
+            println("else")
+            BadRequest(r.message)}
         }.recover { case e =>
           InternalServerError("Fail to get receipt from dataStore manager. " + e.toString)
         }
-
       case e: JsError =>
         Future {
           BadRequest("Not a valid register Json POST: " + e.toString)
